@@ -4,22 +4,29 @@ import pandas as pd
 import pandas as pd
 
 st.title("Silicon Starlings")
-
 stars_dataframe = pd.read_csv("Stars.csv")
 
 # Inscpect the data -> Abhijit
-stars_dataframe.head()
-stars_dataframe.tail()
-stars_dataframe.shape()
-stars_dataframe.columns()
-stars_dataframe.describe()
-stars_dataframe.info()
+st.text("Head")
+st.table(stars_dataframe.head())
+st.text("Tail")
+st.table(stars_dataframe.tail())
+st.text("Shape")
+st.text(stars_dataframe.shape)
+st.text("Columns")
+st.text(stars_dataframe.columns)
+st.text("Basic Statistics")
+st.table(stars_dataframe.describe())
+st.text("Info")
+st.text(stars_dataframe.info())
 
 # Clean the data -> Leon
 cleanstars_dataframe = stars_dataframe.dropna()
 dropped_columns = ['Type']
 cleanstars_dataframe.drop(dropped_columns, axis=1, inplace=True)
 cleanstars_dataframe.describe()
+
+s
 
 # Hypothesis 1 Abhijit
 fig = px.scatter(x=cleanstars_dataframe["L"], y=cleanstars_dataframe["R"])
