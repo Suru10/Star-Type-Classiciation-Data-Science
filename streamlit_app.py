@@ -28,14 +28,27 @@ dropped_columns = ['Type']
 cleanstars_dataframe.drop(dropped_columns, axis=1, inplace=True)
 cleanstars_dataframe.describe()
 
-st.markdown("---")
+st.write("Cleaned data")
+st.write("The data cleaning process involved the removal of all null values as well as the the final column. The column 'Type' was removed because of it's irrelevance to the processing.")
+st.write("Post-processing Head")
+st.table(cleanstars_dataframe.head())
+st.write("Post-processing Tail")
+st.table(cleanstars_dataframe.tail())
+st.write("Post-processing Shape")
+st.write(cleanstars_dataframe.shape)
+st.write("Post-processing Columns")
+st.write(cleanstars_dataframe.columns)
+st.write("Post-processing Basic Statistics")
+st.table(cleanstars_dataframe.describe())
+st.write("Post-processing Info")
+st.write(cleanstars_dataframe.info())
 
 st.write("Hypothesis 1")
 fig = px.scatter(x=cleanstars_dataframe["L"], y=cleanstars_dataframe["R"])
 st.plotly_chart(fig, use_container_width=True)
 
 st.write(
-  "Two main groupings of stars: those with small relative radii and a range of different luminosities, and those with large relative radii and a range of different luminosities. The latter is far more spread out in terms of radii, rather than being `squished` down near the x-axis for the former. While the graph has loose form, it does indicate that stars tend to either have small or large relative radii, with little inbetween, alongside a range of luminosities."
+  "Two main groupings of stars: those with small relative radii and a range of different luminosities, and those with large relative radii and a range of different luminosities. The latter is far more spread out in terms of radii, rather than being 'squished' down near the x-axis for the former. While the graph has loose form, it does indicate that stars tend to either have small or large relative radii, with little inbetween, alongside a range of luminosities."
 )
 
 st.write(
@@ -61,10 +74,10 @@ fig3 = px.scatter(x=cleanstars_dataframe['L'],
                   y=cleanstars_dataframe['A_M'],
                   log_x=True,
                   range_x=[0.00001, 1000000])
-st.plotly_chart(fig3, use_container_width=True)
 
-st.write(
-  "Even after the removal of outliers (Luminosity {<1, >70000}), there seems to be little correlation between the luminosity and temperature of the stars. Within the dataset, most of the points are below 1 and above 10000, with a large variation in luminosity. This can be largely attributed to the nature of the relative luminosity value. It's formula is simply a constant multiplied by the size of the star and the temperature raised to the fourth power. When adjusted to a logarithmic scale (10^x), the graph seems to conform to the exponential growth curve with two clusters of outliers, similar to the relationship between temperature and absolute magnitude. Most datapoints that are outliers in this graph are also outliers in the absolute magnitude vs temperature graph, suggesting a relationship between absolute magnitude and luminosity as seen by the correlation in fig. 3"
+st.write("Even after the removal of outliers (Luminosity {<1, >70000}), there seems to be little correlation between the luminosity and temperature of the stars. Within the dataset, most of the points are below 1 and above 10000, with a large variation in luminosity. This can be largely attributed to the nature of the relative luminosity value. It's formula is simply a constant multiplied by the size of the star and the temperature raised to the fourth power. When adjusted to a logarithmic scale (10^x), the graph seems to conform to the exponential growth curve with two clusters of outliers, similar to the relationship between temperature and absolute magnitude.")
+st.plotly_chart(fig3, use_container_width=True)
+st.write("Most datapoints that are outliers in this graph are also outliers in the absolute magnitude vs temperature graph, suggesting a relationship between absolute magnitude and luminosity as seen by the correlation in fig. 3"
 )
 
 st.markdown("---")
