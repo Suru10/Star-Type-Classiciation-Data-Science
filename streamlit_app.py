@@ -6,19 +6,21 @@ import pandas as pd
 st.title("Silicon Starlings")
 stars_dataframe = pd.read_csv("Stars.csv")
 
-# Inscpect the data -> Abhijit
-st.text("Head")
+st.write("Inspection")
+st.write("Head")
 st.table(stars_dataframe.head())
-st.text("Tail")
+st.write("Tail")
 st.table(stars_dataframe.tail())
-st.text("Shape")
-st.text(stars_dataframe.shape)
-st.text("Columns")
-st.text(stars_dataframe.columns)
-st.text("Basic Statistics")
+st.write("Shape")
+st.write(stars_dataframe.shape)
+st.write("Columns")
+st.write(stars_dataframe.columns)
+st.write("Basic Statistics")
 st.table(stars_dataframe.describe())
-st.text("Info")
-st.text(stars_dataframe.info())
+st.write("Info")
+st.write(stars_dataframe.info())
+
+st.markdown("---")
 
 # Clean the data -> Leon
 cleanstars_dataframe = stars_dataframe.dropna()
@@ -26,69 +28,100 @@ dropped_columns = ['Type']
 cleanstars_dataframe.drop(dropped_columns, axis=1, inplace=True)
 cleanstars_dataframe.describe()
 
+st.markdown("---")
 
-
-# Hypothesis 1 Abhijit
+st.write("Hypothesis 1")
 fig = px.scatter(x=cleanstars_dataframe["L"], y=cleanstars_dataframe["R"])
-fig.show()
+st.plotly_chart(fig, use_container_width=True)
 
-#Two main groupings of stars: those with small relative radii and a range of different luminosities, and those with large relative radii and a range of different luminosities. The latter is far more spread out in terms of radii, rather than being "squished" down near the x-axis for the former. While the graph has loose form, it does indicate that stars tend to either have small or large relative radii, with little inbetween, alongside a range of luminosities.
+st.write(
+  "Two main groupings of stars: those with small relative radii and a range of different luminosities, and those with large relative radii and a range of different luminosities. The latter is far more spread out in terms of radii, rather than being `squished` down near the x-axis for the former. While the graph has loose form, it does indicate that stars tend to either have small or large relative radii, with little inbetween, alongside a range of luminosities."
+)
 
-# Why is there a split in the grouping of stars, and what kinds of stars make up the groups with large and small radii?
+st.write(
+  "Why is there a split in the grouping of stars, and what kinds of stars make up the groups with large and small radii?"
+)
 
-#This can be answered by color coding the stars different colors based on star color and spectral class, alongside online research of stars with abnormally high radii.
+st.write(
+  "This can be answered by color coding the stars different colors based on star color and spectral class, alongside online research of stars with abnormally high radii."
+)
 
-# Hypothesis 2 Leon
+st.markdown("---")
+
+st.write("Hypothesis 2")
 fig2 = px.scatter(x=cleanstars_dataframe['L'],
                   y=cleanstars_dataframe['Temperature'],
                   log_x=True,
                   range_x=[0.00001, 1000000])
 fig2.update_layout(height=800,
                    title_text="Relative Luminosity vs. Temperature (k)")
-fig2.show()
+st.plotly_chart(fig2, use_container_width=True)
 
 fig3 = px.scatter(x=cleanstars_dataframe['L'],
                   y=cleanstars_dataframe['A_M'],
                   log_x=True,
                   range_x=[0.00001, 1000000])
-fig3.show()
+st.plotly_chart(fig3, use_container_width=True)
 
-#Even after the removal of outliers (Luminosity {<1, >70000}), there seems to be little correlation between the luminosity and temperature of the stars. Within the dataset, most of the points are below 1 and above 10000, with a large variation in luminosity. This can be largely attributed to the nature of the relative luminosity value. It's formula is simply a constant multiplied by the size of the star and the temperature raised to the fourth power. When adjusted to a logarithmic scale (10^x), the graph seems to conform to the exponential growth curve with two clusters of outliers, similar to the relationship between temperature and absolute magnitude. Most datapoints that are outliers in this graph are also outliers in the absolute magnitude vs temperature graph, suggesting a relationship between absolute magnitude and luminosity as seen by the correlation in fig. 3.
+st.write(
+  "Even after the removal of outliers (Luminosity {<1, >70000}), there seems to be little correlation between the luminosity and temperature of the stars. Within the dataset, most of the points are below 1 and above 10000, with a large variation in luminosity. This can be largely attributed to the nature of the relative luminosity value. It's formula is simply a constant multiplied by the size of the star and the temperature raised to the fourth power. When adjusted to a logarithmic scale (10^x), the graph seems to conform to the exponential growth curve with two clusters of outliers, similar to the relationship between temperature and absolute magnitude. Most datapoints that are outliers in this graph are also outliers in the absolute magnitude vs temperature graph, suggesting a relationship between absolute magnitude and luminosity as seen by the correlation in fig. 3"
+)
 
-# Hypothesis 3 Abhijit
-fig = px.scatter(x=cleanstars_dataframe["A_M"],
+st.markdown("---")
+
+st.write("Hypothesis 3")
+fig4 = px.scatter(x=cleanstars_dataframe["A_M"],
                  y=cleanstars_dataframe["Temperature"])
-fig.show()
+st.plotly_chart(fig4, use_container_width=True)
 
-#There is a general curve of stars that looks like an exponential decay curve. In general, the higher the absolute magnitude (lower the brightness), the lower the temperature, which makes sense intuitively. However, there are two groups of outliers. The first group is located when the absolute magnitude is less than -5. Despite their low absolute magnitudes (high brightness), they have incredibly low temperatures. The second group is located with the absolute magnitude is greater than 10. Despite their high absolute magnitudes (low brightness), they have incredibly high temperatures.
+st.write(
+  "There is a general curve of stars that looks like an exponential decay curve. In general, the higher the absolute magnitude (lower the brightness), the lower the temperature, which makes sense intuitively. However, there are two groups of outliers. The first group is located when the absolute magnitude is less than -5. Despite their low absolute magnitudes (high brightness), they have incredibly low temperatures. The second group is located with the absolute magnitude is greater than 10. Despite their high absolute magnitudes (low brightness), they have incredibly high temperatures."
+)
 
-# What makes the stars from each outlier group special?
+st.write(
+  "What makes the stars from each outlier group special?"
+)
 
-#This can be answered by color coding the stars different colors based on star color and spectral class, alongside online research of stars with abnormally high brightness and low temperatures and stars with low brightness and high temperatures.
+st.write(
+  "This can be answered by color coding the stars different colors based on star color and spectral class, alongside online research of stars with abnormally high brightness and low temperatures and stars with low brightness and high temperatures."
+)
 
-# Hypothesis 4 Leon
+st.markdown("---")
+
+st.write("Hypothesis 4")
 color_frequency = cleanstars_dataframe["Color"].value_counts()
-fig = px.pie(cleanstars_dataframe, names='Color', title='Frequency of star')
-fig.update_traces(hoverinfo='percent', textinfo='value')
-fig.show()
+fig5 = px.pie(cleanstars_dataframe, names='Color', title='Frequency of star')
+fig5.update_traces(hoverinfo='percent', textinfo='value')
+st.plotly_chart(fig5, use_container_width=True)
 
-# anaylsis
+st.write(
+  "Hypothesis 4 Anaylsis"
+)
 
-# Hypothesis 5 Abhijit
-fig = px.density_heatmap(x=cleanstars_dataframe["Color"],
+st.markdown("---")
+
+st.write("Hypothesis 5")
+fig6 = px.density_heatmap(x=cleanstars_dataframe["Color"],
                          y=cleanstars_dataframe["Spectral_Class"])
-fig.update_xaxes(categoryarray=[
+fig6.update_xaxes(categoryarray=[
   "Red", "OrangeRed", "Orange", "YellowOrange", "Yellow", "YellowWhite",
   "White", "BlueWhite", "Blue"
 ])
-fig.update_yaxes(categoryarray=["M", "K", "G", "F", "A", "B", "O"])
-fig.show()
+fig6.update_yaxes(categoryarray=["M", "K", "G", "F", "A", "B", "O"])
+st.plotly_chart(fig6, use_container_width=True)
 
-# According to online research, the spectral classifications indicate different colors and temperatures of the star, where M is the most red and O is the most blue. We see this in the heat map, as bluer stars are of the O, B, and A spectral classes, yellower stars are part of the F and G classes, and oranger stars are part of the K class, and red stars are part of the M class. Online research also indicates increasing temperature for different spectral classes, where O>B>A>F>G>K>M in terms of temperature.
+st.write(
+  "According to online research, the spectral classifications indicate different colors and temperatures of the star, where M is the most red and O is the most blue. We see this in the heat map, as bluer stars are of the O, B, and A spectral classes, yellower stars are part of the F and G classes, and oranger stars are part of the K class, and red stars are part of the M class. Online research also indicates increasing temperature for different spectral classes, where O>B>A>F>G>K>M in terms of temperature."
+)
 
-# Would the same pattern of increasing temperature based on spectral class also apply to solely color, considering spectral class and color have a proportional relationship?
+st.write(
+  "Would the same pattern of increasing temperature based on spectral class also apply to solely color, considering spectral class and color have a proportional relationship?"
+)
 
-#This can be answered through studying the relationship and creating graphs between temperature and color, as well as online research on why stars of certain color have different or greater temperatures than stars of other colors.
+st.write(
+  "This can be answered through studying the relationship and creating graphs between temperature and color, as well as online research on why stars of certain color have different or greater temperatures than stars of other colors."
+)
+
 """
 #import libraries
 import streamlit as st
