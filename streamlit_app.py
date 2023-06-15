@@ -26,7 +26,7 @@ dropped_columns = ['Type']
 cleanstars_dataframe.drop(dropped_columns, axis=1, inplace=True)
 cleanstars_dataframe.describe()
 
-s
+
 
 # Hypothesis 1 Abhijit
 fig = px.scatter(x=cleanstars_dataframe["L"], y=cleanstars_dataframe["R"])
