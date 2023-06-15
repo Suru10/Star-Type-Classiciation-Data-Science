@@ -108,9 +108,8 @@ fig5.update_traces(hoverinfo='percent', textinfo='value')
 st.plotly_chart(fig5, use_container_width=True)
 
 st.write(
-  "Hypothesis 4 Anaylsis"
+  "Stars come in various colors, and the color of a star is primarily determined by its temperature. The temperature, in turn, affects the balance between the different wavelengths of light emitted by the star. Stars emit light across a wide spectrum, but the human eye is most sensitive to light in the green-yellow part of the spectrum.Generally, stars with higher temperatures appear bluish or white, while stars with lower temperatures appear reddish. From the temperature graph, it is evident that stars with lower temperature (<5000k) appear more often than those with higher temperatures. "
 )
-
 st.markdown("---")
 
 st.write("Hypothesis 5")
