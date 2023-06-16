@@ -1,7 +1,6 @@
 import streamlit as st
 import plotly.express as px
 import pandas as pd
-import pandas as pd
 
 # Head : Dataset name as Title, and add some discription about the dataset
 # Your information: Name, and some bio
@@ -11,7 +10,9 @@ import pandas as pd
 # Conclusion (short summary)
 
 st.title("Star Type Classifications --- Nasa")
-st.write("")
+st.write(
+  "This dataset describes information relating to a couple hundred stars studied by "
+)
 st.write("")
 st.write("")
 stars_dataframe = pd.read_csv("Stars.csv")
@@ -41,7 +42,7 @@ cleanstars_dataframe = stars_dataframe.drop(dropped_columns,
 cleanstars_dataframe.describe()
 
 st.write("Cleaning the data")
-st.write("Number of null rows: " + nummnull)
+st.write("Number of null rows: " + numnull)
 st.write(
   "The data cleaning process involved checking for null values as well as the the final column. The column 'Type' was removed because of it's irrelevance to the processing, and no null values were found."
 )
