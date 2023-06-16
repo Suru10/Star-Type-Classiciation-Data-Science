@@ -181,6 +181,7 @@ fig6.update_xaxes(categoryarray=[
   "White", "BlueWhite", "Blue"
 ])
 fig6.update_yaxes(categoryarray=["M", "K", "G", "F", "A", "B", "O"])
+fig6.update_layout(xaxis_title="Color", yaxis_title="Spectral Class")
 st.plotly_chart(fig6, use_container_width=True)
 
 st.write(
