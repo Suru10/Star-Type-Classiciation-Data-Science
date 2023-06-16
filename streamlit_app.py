@@ -9,11 +9,11 @@ import pandas as pd
 # some cleanups for analysis
 # Conclusion (short summary)
 st.title("Silicon Starlings")
-st.header("Intro")
 st.write("Abhijit Geetaumesh: Lives in Bay Area, age 16")
 st.write("Leon Zhou: Lives in the Bay Area, age 15")
 
 st.title("Star Type Classifications --- Nasa")
+st.header("Intro")
 st.write(
   "This dataset describes the data from a couple hundred stars studied by NASA, each with information relating to the brightness, size, and color. We plan to identify and analyze the relationships between each category of data, to try and come to some sort of conclusion about the stars studied."
 )
@@ -72,7 +72,9 @@ fig = px.scatter(x=cleanstars_dataframe["L"],
                    "L": "Relative Luminosity",
                    "R": "Relative Radius"
                  })
-fig.update_layout(title_text="Relative Luminosity vs. Relative  Radius")
+fig.update_layout(title_text="Relative Luminosity vs. Relative  Radius",
+                  xaxis_title="Relative Luminosity",
+                  yaxis_title="Relative Radius")
 st.plotly_chart(fig, use_container_width=True)
 
 st.write(
@@ -92,16 +94,17 @@ st.markdown("---")
 st.header(
   "Hypothesis 2: What's the relation between relative luminosity and temperature of the stars?"
 )
-fig2 = px.scatter(
-  x=cleanstars_dataframe['L'],
-  y=cleanstars_dataframe['Temperature'],
-  labels={
-    "L": "Relative Luminosity",
-    "Temperature": "Temperature (k)"
-  },
-  title="Relative Luminosity vs. Temperature  (k)",
-  log_x=True,
-  range_x=[0.00001, 1000000])
+fig2 = px.scatter(x=cleanstars_dataframe['L'],
+                  y=cleanstars_dataframe['Temperature'],
+                  labels={
+                    "L": "Relative Luminosity",
+                    "Temperature": "Temperature (k)"
+                  },
+                  title="Relative Luminosity vs. Temperature  (k)",
+                  log_x=True,
+                  range_x=[0.00001, 1000000])
+fig2.update_layout(xaxis_title="Relative Luminosity",
+                   yaxis_title="Temperature (k)")
 st.plotly_chart(fig2, use_container_width=True)
 
 fig3 = px.scatter(x=cleanstars_dataframe['L'],
@@ -116,6 +119,8 @@ fig3 = px.scatter(x=cleanstars_dataframe['L'],
 st.write(
   "Even after the removal of outliers (Luminosity {<1, >70000}), there seems to be little correlation between the luminosity and temperature of the stars. Within the dataset, most of the points are below 1 and above 10000, with a large variation in luminosity. This can be largely attributed to the nature of the relative luminosity value. It's formula is simply a constant multiplied by the size of the star and the temperature raised to the fourth power. When adjusted to a logarithmic scale (10^x), the graph seems to conform to the exponential growth curve with two clusters of outliers, similar to the relationship between temperature and absolute magnitude."
 )
+fig3.update_layout(xaxis_title="Relative Luminosity",
+                   yaxis_title="Absolute Magnitude")
 st.plotly_chart(fig3, use_container_width=True)
 st.write(
   "Most datapoints that are outliers in this graph are also outliers in the absolute magnitude vs temperature graph, suggesting a relationship between absolute magnitude and luminosity as seen by the correlation in fig. 3"
@@ -132,8 +137,11 @@ fig4 = px.scatter(x=cleanstars_dataframe["A_M"],
                     "A_M": "Absolute Magnitude",
                     "Temperature": "Temperature (k)"
                   })
+
 st.plotly_chart(fig4, use_container_width=True)
-fig4.update_layout(title_text="Absolute Magnitude vs. Temperature")
+fig4.update_layout(title_text="Absolute Magnitude vs. Temperature",
+                   xaxis_title="Absolute Magnitude",
+                   yaxis_title="Temperature (k)")
 
 st.write(
   "There is a general curve of stars that looks like an exponential decay curve. In general, the higher the absolute magnitude (lower the brightness), the lower the temperature, which makes sense intuitively. However, there are two groups of outliers. The first group is located when the absolute magnitude is less than -5. Despite their low absolute magnitudes (high brightness), they have incredibly low temperatures. The second group is located with the absolute magnitude is greater than 10. Despite their high absolute magnitudes (low brightness), they have incredibly high temperatures."
@@ -192,15 +200,26 @@ st.markdown("---")
 
 st.header("Conclusion")
 
-st.write("While a correlation between radius and luminosity was observed, it is not a simple direct proportionality. Stars with larger radii tend to exhibit higher luminosities, suggesting a relationship between a star's physical size and its energy output. However, it is important to consider that other factors, such as temperature and composition, can also influence a star's luminosity.")
+st.write(
+  "While a correlation between radius and luminosity was observed, it is not a simple direct proportionality. Stars with larger radii tend to exhibit higher luminosities, suggesting a relationship between a star's physical size and its energy output. However, it is important to consider that other factors, such as temperature and composition, can also influence a star's luminosity."
+)
 
-st.write("A positive correlation was observed between luminosity and temperature. This implies that as the temperature of a star increases, so does its luminosity. This finding aligns with the well-known Stefan-Boltzmann law, which states that the luminosity of a star is directly proportional to the fourth power of its temperature.")
+st.write(
+  "A positive correlation was observed between luminosity and temperature. This implies that as the temperature of a star increases, so does its luminosity. This finding aligns with the well-known Stefan-Boltzmann law, which states that the luminosity of a star is directly proportional to the fourth power of its temperature."
+)
 
-st.write("The relationship between absolute magnitude and temperature was found to be more intricate. While temperature does play a role in determining the absolute magnitude of a star, other factors such as distance from Earth, intrinsic brightness, and composition also influence this property. Consequently, the relationship between absolute magnitude and temperature is not a straightforward linear correlation, as seen from the graph.")
+st.write(
+  "The relationship between absolute magnitude and temperature was found to be more intricate. While temperature does play a role in determining the absolute magnitude of a star, other factors such as distance from Earth, intrinsic brightness, and composition also influence this property. Consequently, the relationship between absolute magnitude and temperature is not a straightforward linear correlation, as seen from the graph."
+)
 
-st.write("In terms of star color, the analysis revealed a varied frequency distribution. Stars exhibit a range of colors, with blue being the hottest and red being the coolest. However, the frequency distribution is not uniform, with the majority of stars falling within the white to red color categories. Blue stars were found to be relatively less frequent, while red stars were more commonly observed.")
+st.write(
+  "In terms of star color, the analysis revealed a varied frequency distribution. Stars exhibit a range of colors, with blue being the hottest and red being the coolest. However, the frequency distribution is not uniform, with the majority of stars falling within the white to red color categories. Blue stars were found to be relatively less frequent, while red stars were more commonly observed."
+)
 
-st.write("There also exists a close relationship between star color and spectral class, which provides information about the surface temperature of stars. Different spectral classes, such as O, B, A, F, G, K, and M, correspond to different temperature ranges. Blue stars, associated with spectral classes O, B and A, have higher temperatures, while red stars, linked to spectral classes M and K, have lower temperatures. This connection between color and spectral class enables inferences to be made about a star's temperature based on its observed color.")
+st.write(
+  "There also exists a close relationship between star color and spectral class, which provides information about the surface temperature of stars. Different spectral classes, such as O, B, A, F, G, K, and M, correspond to different temperature ranges. Blue stars, associated with spectral classes O, B and A, have higher temperatures, while red stars, linked to spectral classes M and K, have lower temperatures. This connection between color and spectral class enables inferences to be made about a star's temperature based on its observed color."
+)
 
-st.write("All in all, this project as taught us a lot about data management and analysis. Finding the correlation between each set of data is not as straightforwards as it seems. Some of the correlations, such as the one between Relative Luminosity and Temperature, or Absolute Magnitude and Temperature, took some processing to find a clearer trend. Outliers played a large factor in this - they often misled us and shrouded the real trend.")
-
+st.write(
+  "All in all, this project as taught us a lot about data management and analysis. Finding the correlation between each set of data is not as straightforwards as it seems. Some of the correlations, such as the one between Relative Luminosity and Temperature, or Absolute Magnitude and Temperature, took some processing to find a clearer trend. Outliers played a large factor in this - they often misled us and shrouded the real trend."
+)
