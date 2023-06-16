@@ -11,10 +11,14 @@ import pandas as pd
 
 st.title("Star Type Classifications --- Nasa")
 st.write(
-  "This dataset describes information relating to a couple hundred stars studied by "
+  "This dataset describes information relating to a couple hundred stars studied by NASA, each with information relating the brightness, size, and color."
 )
-st.write("")
-st.write("")
+st.write(
+  "Abhijit Geetaumesh: Lives in Bay Area, age 16"
+)
+st.write(
+  "Leon Zhou: "
+)
 stars_dataframe = pd.read_csv("Stars.csv")
 
 st.markdown("---")
@@ -38,7 +42,7 @@ numnull = stars_dataframe.isna().sum()
 dropped_columns = ['Type']
 cleanstars_dataframe = stars_dataframe.drop(dropped_columns,
                                             axis=1,
-                                            inplace=True)
+                                            inplace=False)
 cleanstars_dataframe.describe()
 
 st.write("Cleaning the data")
@@ -183,6 +187,11 @@ st.write(
 st.write(
   "This can be answered through studying the relationship and creating graphs between temperature and color, as well as online research on why stars of certain color have different or greater temperatures than stars of other colors."
 )
+
+st.markdown("---")
+
+st.write(
+  "Conc")
 """
 #import libraries
 import streamlit as st
