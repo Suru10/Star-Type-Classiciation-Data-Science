@@ -49,7 +49,7 @@ st.table(cleanstars_dataframe.describe())
 
 st.markdown("---")
 
-st.write("Hypothesis 1")
+st.write("Hypothesis 1: What's the relation between relative luminosity and relative radius of the stars?")
 fig = px.scatter(x=cleanstars_dataframe["L"], y=cleanstars_dataframe["R"], labels={
                      "L": "Relative Luminosity",
                      "R": "Relative Radius"
@@ -71,7 +71,7 @@ st.write(
 
 st.markdown("---")
 
-st.write("Hypothesis 2")
+st.write("Hypothesis 2: What's the relation between relative luminosity and temperature of the stars?")
 fig2 = px.scatter(x=cleanstars_dataframe['L'],
                   y=cleanstars_dataframe['Temperature'], labels={"L": "Relative Luminosity",                       "Temperature": "Temperature (k)"}, title="Relative Luminosity vs. Temperature                    (k)", log_x=True, range_x=[0.00001, 1000000])
 st.plotly_chart(fig2, use_container_width=True)
@@ -88,7 +88,7 @@ st.write("Most datapoints that are outliers in this graph are also outliers in t
 
 st.markdown("---")
 
-st.write("Hypothesis 3")
+st.write("Hypothesis 3: What's the relation between absolute magnitude and temperature of the stars? ")
 fig4 = px.scatter(x=cleanstars_dataframe["A_M"],
                  y=cleanstars_dataframe["Temperature"], labels={
                      "A_M": "Absolute Magnitude",
@@ -111,7 +111,7 @@ st.write(
 
 st.markdown("---")
 
-st.write("Hypothesis 4")
+st.write("Hypothesis 4: What is the frequency of each kind of star color?")
 color_frequency = cleanstars_dataframe["Color"].value_counts()
 fig5 = px.pie(cleanstars_dataframe, names='Color', title='Frequency of Star Colors')
 fig5.update_traces(hoverinfo='percent', textinfo='value')
@@ -122,7 +122,7 @@ st.write(
 )
 st.markdown("---")
 
-st.write("Hypothesis 5")
+st.write("Hypothesis 5: What is the relationship between color and spectral class?")
 fig6 = px.density_heatmap(x=cleanstars_dataframe["Color"],
                          y=cleanstars_dataframe["Spectral_Class"], labels={
                      "Color": "Color",
