@@ -13,12 +13,8 @@ st.title("Star Type Classifications --- Nasa")
 st.write(
   "This dataset describes information relating to a couple hundred stars studied by NASA, each with information relating the brightness, size, and color."
 )
-st.write(
-  "Abhijit Geetaumesh: Lives in Bay Area, age 16"
-)
-st.write(
-  "Leon Zhou: "
-)
+st.write("Abhijit Geetaumesh: Lives in Bay Area, age 16")
+st.write("Leon Zhou: ")
 stars_dataframe = pd.read_csv("Stars.csv")
 
 st.markdown("---")
@@ -46,7 +42,8 @@ cleanstars_dataframe = stars_dataframe.drop(dropped_columns,
 cleanstars_dataframe.describe()
 
 st.write("Cleaning the data")
-st.write("Number of null rows: " + numnull)
+st.write("Number of null rows: ")
+st.write(numnull)
 st.write(
   "The data cleaning process involved checking for null values as well as the the final column. The column 'Type' was removed because of it's irrelevance to the processing, and no null values were found."
 )
@@ -190,8 +187,8 @@ st.write(
 
 st.markdown("---")
 
-st.write(
-  "Conc")
+st.write("Conclusion")
+st.write("Conclusion")
 """
 #import libraries
 import streamlit as st
