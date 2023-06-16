@@ -33,14 +33,18 @@ st.table(stars_dataframe.describe())
 st.markdown("---")
 
 # Clean the data -> Leon
-numnull = stars_dataframe.isna.sum()
+numnull = stars_dataframe.isna().sum()
 dropped_columns = ['Type']
-cleanstars_dataframe = stars_dataframe.drop(dropped_columns, axis=1, inplace=True)
+cleanstars_dataframe = stars_dataframe.drop(dropped_columns,
+                                            axis=1,
+                                            inplace=True)
 cleanstars_dataframe.describe()
 
 st.write("Cleaning the data")
 st.write("Number of null rows: " + nummnull)
-st.write("The data cleaning process involved checking for null values as well as the the final column. The column 'Type' was removed because of it's irrelevance to the processing, and no null values were found.")
+st.write(
+  "The data cleaning process involved checking for null values as well as the the final column. The column 'Type' was removed because of it's irrelevance to the processing, and no null values were found."
+)
 st.write("Post-processing Head")
 st.table(cleanstars_dataframe.head())
 st.write("Post-processing Tail")
@@ -54,10 +58,14 @@ st.table(cleanstars_dataframe.describe())
 
 st.markdown("---")
 
-st.write("Hypothesis 1: What's the relation between relative luminosity and relative radius of the stars?")
-fig = px.scatter(x=cleanstars_dataframe["L"], y=cleanstars_dataframe["R"], labels={
-                     "L": "Relative Luminosity",
-                     "R": "Relative Radius"
+st.write(
+  "Hypothesis 1: What's the relation between relative luminosity and relative radius of the stars?"
+)
+fig = px.scatter(x=cleanstars_dataframe["L"],
+                 y=cleanstars_dataframe["R"],
+                 labels={
+                   "L": "Relative Luminosity",
+                   "R": "Relative Radius"
                  })
 fig.update_layout(title_text="Relative Luminosity vs. Relative  Radius")
 st.plotly_chart(fig, use_container_width=True)
@@ -76,29 +84,49 @@ st.write(
 
 st.markdown("---")
 
-st.write("Hypothesis 2: What's the relation between relative luminosity and temperature of the stars?")
-fig2 = px.scatter(x=cleanstars_dataframe['L'],
-                  y=cleanstars_dataframe['Temperature'], labels={"L": "Relative Luminosity",                       "Temperature": "Temperature (k)"}, title="Relative Luminosity vs. Temperature                    (k)", log_x=True, range_x=[0.00001, 1000000])
+st.write(
+  "Hypothesis 2: What's the relation between relative luminosity and temperature of the stars?"
+)
+fig2 = px.scatter(
+  x=cleanstars_dataframe['L'],
+  y=cleanstars_dataframe['Temperature'],
+  labels={
+    "L": "Relative Luminosity",
+    "Temperature": "Temperature (k)"
+  },
+  title="Relative Luminosity vs. Temperature                    (k)",
+  log_x=True,
+  range_x=[0.00001, 1000000])
 st.plotly_chart(fig2, use_container_width=True)
 
 fig3 = px.scatter(x=cleanstars_dataframe['L'],
-                  y=cleanstars_dataframe['A_M'], labels={"L": "Relative Luminosity",                       "A_M": "Absolute Magnitude"},
+                  y=cleanstars_dataframe['A_M'],
+                  labels={
+                    "L": "Relative Luminosity",
+                    "A_M": "Absolute Magnitude"
+                  },
                   log_x=True,
                   range_x=[0.00001, 1000000])
 
-st.write("Even after the removal of outliers (Luminosity {<1, >70000}), there seems to be little correlation between the luminosity and temperature of the stars. Within the dataset, most of the points are below 1 and above 10000, with a large variation in luminosity. This can be largely attributed to the nature of the relative luminosity value. It's formula is simply a constant multiplied by the size of the star and the temperature raised to the fourth power. When adjusted to a logarithmic scale (10^x), the graph seems to conform to the exponential growth curve with two clusters of outliers, similar to the relationship between temperature and absolute magnitude.")
+st.write(
+  "Even after the removal of outliers (Luminosity {<1, >70000}), there seems to be little correlation between the luminosity and temperature of the stars. Within the dataset, most of the points are below 1 and above 10000, with a large variation in luminosity. This can be largely attributed to the nature of the relative luminosity value. It's formula is simply a constant multiplied by the size of the star and the temperature raised to the fourth power. When adjusted to a logarithmic scale (10^x), the graph seems to conform to the exponential growth curve with two clusters of outliers, similar to the relationship between temperature and absolute magnitude."
+)
 st.plotly_chart(fig3, use_container_width=True)
-st.write("Most datapoints that are outliers in this graph are also outliers in the absolute magnitude vs temperature graph, suggesting a relationship between absolute magnitude and luminosity as seen by the correlation in fig. 3"
+st.write(
+  "Most datapoints that are outliers in this graph are also outliers in the absolute magnitude vs temperature graph, suggesting a relationship between absolute magnitude and luminosity as seen by the correlation in fig. 3"
 )
 
 st.markdown("---")
 
-st.write("Hypothesis 3: What's the relation between absolute magnitude and temperature of the stars? ")
+st.write(
+  "Hypothesis 3: What's the relation between absolute magnitude and temperature of the stars? "
+)
 fig4 = px.scatter(x=cleanstars_dataframe["A_M"],
-                 y=cleanstars_dataframe["Temperature"], labels={
-                     "A_M": "Absolute Magnitude",
-                     "Temperature": "Temperature (k)"
-                 })
+                  y=cleanstars_dataframe["Temperature"],
+                  labels={
+                    "A_M": "Absolute Magnitude",
+                    "Temperature": "Temperature (k)"
+                  })
 st.plotly_chart(fig4, use_container_width=True)
 fig4.update_layout(title_text="Absolute Magnitude vs. Temperature")
 
@@ -106,9 +134,7 @@ st.write(
   "There is a general curve of stars that looks like an exponential decay curve. In general, the higher the absolute magnitude (lower the brightness), the lower the temperature, which makes sense intuitively. However, there are two groups of outliers. The first group is located when the absolute magnitude is less than -5. Despite their low absolute magnitudes (high brightness), they have incredibly low temperatures. The second group is located with the absolute magnitude is greater than 10. Despite their high absolute magnitudes (low brightness), they have incredibly high temperatures."
 )
 
-st.write(
-  "What makes the stars from each outlier group special?"
-)
+st.write("What makes the stars from each outlier group special?")
 
 st.write(
   "This can be answered by color coding the stars different colors based on star color and spectral class, alongside online research of stars with abnormally high brightness and low temperatures and stars with low brightness and high temperatures."
@@ -118,7 +144,9 @@ st.markdown("---")
 
 st.write("Hypothesis 4: What is the frequency of each kind of star color?")
 color_frequency = cleanstars_dataframe["Color"].value_counts()
-fig5 = px.pie(cleanstars_dataframe, names='Color', title='Frequency of Star Colors')
+fig5 = px.pie(cleanstars_dataframe,
+              names='Color',
+              title='Frequency of Star Colors')
 fig5.update_traces(hoverinfo='percent', textinfo='value')
 st.plotly_chart(fig5, use_container_width=True)
 
@@ -127,12 +155,14 @@ st.write(
 )
 st.markdown("---")
 
-st.write("Hypothesis 5: What is the relationship between color and spectral class?")
+st.write(
+  "Hypothesis 5: What is the relationship between color and spectral class?")
 fig6 = px.density_heatmap(x=cleanstars_dataframe["Color"],
-                         y=cleanstars_dataframe["Spectral_Class"], labels={
-                     "Color": "Color",
-                     "Spectral_Class": "Spectral Class"
-                 })
+                          y=cleanstars_dataframe["Spectral_Class"],
+                          labels={
+                            "Color": "Color",
+                            "Spectral_Class": "Spectral Class"
+                          })
 fig6.update_layout(title_text="Color vs. Spectral Class")
 fig6.update_xaxes(categoryarray=[
   "Red", "OrangeRed", "Orange", "YellowOrange", "Yellow", "YellowWhite",
@@ -152,7 +182,6 @@ st.write(
 st.write(
   "This can be answered through studying the relationship and creating graphs between temperature and color, as well as online research on why stars of certain color have different or greater temperatures than stars of other colors."
 )
-
 """
 #import libraries
 import streamlit as st
