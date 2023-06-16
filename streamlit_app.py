@@ -137,11 +137,10 @@ fig4 = px.scatter(x=cleanstars_dataframe["A_M"],
                     "A_M": "Absolute Magnitude",
                     "Temperature": "Temperature (k)"
                   })
-
-st.plotly_chart(fig4, use_container_width=True)
 fig4.update_layout(title_text="Absolute Magnitude vs. Temperature",
                    xaxis_title="Absolute Magnitude",
                    yaxis_title="Temperature (k)")
+st.plotly_chart(fig4, use_container_width=True)
 
 st.write(
   "There is a general curve of stars that looks like an exponential decay curve. In general, the higher the absolute magnitude (lower the brightness), the lower the temperature, which makes sense intuitively. However, there are two groups of outliers. The first group is located when the absolute magnitude is less than -5. Despite their low absolute magnitudes (high brightness), they have incredibly low temperatures. The second group is located with the absolute magnitude is greater than 10. Despite their high absolute magnitudes (low brightness), they have incredibly high temperatures."
