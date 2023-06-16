@@ -10,9 +10,13 @@ import pandas as pd
 # some cleanups for analysis
 # Conclusion (short summary)
 
-
-st.title("Silicon Starlings")
+st.title("Star Type Classifications --- Nasa")
+st.write("")
+st.write("")
+st.write("")
 stars_dataframe = pd.read_csv("Stars.csv")
+
+st.markdown("---")
 
 st.write("Inspection")
 st.write("Head")
@@ -29,12 +33,13 @@ st.table(stars_dataframe.describe())
 st.markdown("---")
 
 # Clean the data -> Leon
-cleanstars_dataframe = stars_dataframe.dropna()
+numnull = stars_dataframe.isna.sum()
 dropped_columns = ['Type']
-cleanstars_dataframe.drop(dropped_columns, axis=1, inplace=True)
+cleanstars_dataframe = stars_dataframe.drop(dropped_columns, axis=1, inplace=True)
 cleanstars_dataframe.describe()
 
-st.write("Cleaned data")
+st.write("Cleaning the data")
+st.write("Number of null rows: " + nummnull)
 st.write("The data cleaning process involved checking for null values as well as the the final column. The column 'Type' was removed because of it's irrelevance to the processing, and no null values were found.")
 st.write("Post-processing Head")
 st.table(cleanstars_dataframe.head())
@@ -77,7 +82,7 @@ fig2 = px.scatter(x=cleanstars_dataframe['L'],
 st.plotly_chart(fig2, use_container_width=True)
 
 fig3 = px.scatter(x=cleanstars_dataframe['L'],
-                  y=cleanstars_dataframe['A_M'],
+                  y=cleanstars_dataframe['A_M'], labels={"L": "Relative Luminosity",                       "A_M": "Absolute Magnitude"},
                   log_x=True,
                   range_x=[0.00001, 1000000])
 
