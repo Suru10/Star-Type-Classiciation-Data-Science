@@ -8,18 +8,21 @@ import pandas as pd
 # Add hypothesis questoins before graphs, and title axis for the graphs
 # some cleanups for analysis
 # Conclusion (short summary)
+st.title("Silicon Starlings")
+st.header("Intro")
+st.write("Abhijit Geetaumesh: Lives in Bay Area, age 16")
+st.write("Leon Zhou: Lives in the Bay Area, age 15")
 
 st.title("Star Type Classifications --- Nasa")
 st.write(
-  "This dataset describes information relating to a couple hundred stars studied by NASA, each with information relating the brightness, size, and color."
+  "This dataset describes the data from a couple hundred stars studied by NASA, each with information relating to the brightness, size, and color. We plan to identify and analyze the relationships between each category of data, to try and come to some sort of conclusion about the stars studied."
 )
-st.write("Abhijit Geetaumesh: Lives in Bay Area, age 16")
-st.write("Leon Zhou: ")
+
 stars_dataframe = pd.read_csv("Stars.csv")
 
 st.markdown("---")
 
-st.write("Inspection")
+st.header("Inspection")
 st.write("Head")
 st.table(stars_dataframe.head())
 st.write("Tail")
@@ -41,7 +44,7 @@ cleanstars_dataframe = stars_dataframe.drop(dropped_columns,
                                             inplace=False)
 cleanstars_dataframe.describe()
 
-st.write("Cleaning the data")
+st.header("Cleaning the data")
 st.write("Number of null rows: ")
 st.write(numnull)
 st.write(
@@ -60,7 +63,7 @@ st.table(cleanstars_dataframe.describe())
 
 st.markdown("---")
 
-st.write(
+st.header(
   "Hypothesis 1: What's the relation between relative luminosity and relative radius of the stars?"
 )
 fig = px.scatter(x=cleanstars_dataframe["L"],
@@ -86,7 +89,7 @@ st.write(
 
 st.markdown("---")
 
-st.write(
+st.header(
   "Hypothesis 2: What's the relation between relative luminosity and temperature of the stars?"
 )
 fig2 = px.scatter(
@@ -96,7 +99,7 @@ fig2 = px.scatter(
     "L": "Relative Luminosity",
     "Temperature": "Temperature (k)"
   },
-  title="Relative Luminosity vs. Temperature                    (k)",
+  title="Relative Luminosity vs. Temperature  (k)",
   log_x=True,
   range_x=[0.00001, 1000000])
 st.plotly_chart(fig2, use_container_width=True)
@@ -120,7 +123,7 @@ st.write(
 
 st.markdown("---")
 
-st.write(
+st.header(
   "Hypothesis 3: What's the relation between absolute magnitude and temperature of the stars? "
 )
 fig4 = px.scatter(x=cleanstars_dataframe["A_M"],
@@ -144,7 +147,7 @@ st.write(
 
 st.markdown("---")
 
-st.write("Hypothesis 4: What is the frequency of each kind of star color?")
+st.header("Hypothesis 4: What is the frequency of each kind of star color?")
 color_frequency = cleanstars_dataframe["Color"].value_counts()
 fig5 = px.pie(cleanstars_dataframe,
               names='Color',
@@ -157,7 +160,7 @@ st.write(
 )
 st.markdown("---")
 
-st.write(
+st.header(
   "Hypothesis 5: What is the relationship between color and spectral class?")
 fig6 = px.density_heatmap(x=cleanstars_dataframe["Color"],
                           y=cleanstars_dataframe["Spectral_Class"],
@@ -187,58 +190,17 @@ st.write(
 
 st.markdown("---")
 
-st.write("Conclusion")
-st.write("Conclusion")
-"""
-#import libraries
-import streamlit as st
-import pandas as pd
-#import matplotlib.pyplot as plt
-#import numpy as np
-#import plotly.figure_factory as ff
+st.header("Conclusion")
 
-#look for more information here https://docs.streamlit.io/library/cheatsheet
+st.write("While a correlation between radius and luminosity was observed, it is not a simple direct proportionality. Stars with larger radii tend to exhibit higher luminosities, suggesting a relationship between a star's physical size and its energy output. However, it is important to consider that other factors, such as temperature and composition, can also influence a star's luminosity.")
 
-#adding title
-st.title("Title Here")
+st.write("A positive correlation was observed between luminosity and temperature. This implies that as the temperature of a star increases, so does its luminosity. This finding aligns with the well-known Stefan-Boltzmann law, which states that the luminosity of a star is directly proportional to the fourth power of its temperature.")
 
-#adding discription to your website
-st.text('Description')
+st.write("The relationship between absolute magnitude and temperature was found to be more intricate. While temperature does play a role in determining the absolute magnitude of a star, other factors such as distance from Earth, intrinsic brightness, and composition also influence this property. Consequently, the relationship between absolute magnitude and temperature is not a straightforward linear correlation, as seen from the graph.")
 
-#Thesis here
-st.header('Thesis')
-st.text('Add your Thesis here')
+st.write("In terms of star color, the analysis revealed a varied frequency distribution. Stars exhibit a range of colors, with blue being the hottest and red being the coolest. However, the frequency distribution is not uniform, with the majority of stars falling within the white to red color categories. Blue stars were found to be relatively less frequent, while red stars were more commonly observed.")
 
+st.write("There also exists a close relationship between star color and spectral class, which provides information about the surface temperature of stars. Different spectral classes, such as O, B, A, F, G, K, and M, correspond to different temperature ranges. Blue stars, associated with spectral classes O, B and A, have higher temperatures, while red stars, linked to spectral classes M and K, have lower temperatures. This connection between color and spectral class enables inferences to be made about a star's temperature based on its observed color.")
 
-#SHOWING THE DATA
-#dataset Header
-st.header('Dataset')
+st.write("All in all, this project as taught us a lot about data management and analysis. Finding the correlation between each set of data is not as straightforwards as it seems. Some of the correlations, such as the one between Relative Luminosity and Temperature, or Absolute Magnitude and Temperature, took some processing to find a clearer trend. Outliers played a large factor in this - they often misled us and shrouded the real trend.")
 
-#add your dataset (delete dataset this is an example)
-BostonHousing = pd.read_csv("BostonHousing.csv")
-
-#showing dataset
-st.table(BostonHousing.head())
-st.text('Showing dataset and writting about it here')
-
-
-#Adding images to make your streamlit look visually better!
-st.image('pro.png')
-st.text('You can add photos with descriptions')
-
-#Adding 3-6 Visualizations using photos collected and made from your graph
-#adding images
-#adding graphs by images
-st.image('pasted image 0.png')
-st.text('Discription about your graph and visualizations')
-
-#adding graphs by making plotly_Chart
-# Plot!
-#st.plotly_chart(BostonHousing, use_container_width=True)
-#st.text('Discription')
-
-
-#adding conclusions
-st.header('Conclusion')
-st.text('add your conclusion here')
-"""
