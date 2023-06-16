@@ -3,6 +3,14 @@ import plotly.express as px
 import pandas as pd
 import pandas as pd
 
+# Head : Dataset name as Title, and add some discription about the dataset
+# Your information: Name, and some bio
+# check for null values, there was no null values
+# Add hypothesis questoins before graphs, and title axis for the graphs
+# some cleanups for analysis
+# Conclusion (short summary)
+
+
 st.title("Silicon Starlings")
 stars_dataframe = pd.read_csv("Stars.csv")
 
@@ -17,8 +25,6 @@ st.write("Columns")
 st.write(stars_dataframe.columns)
 st.write("Basic Statistics")
 st.table(stars_dataframe.describe())
-st.write("Info")
-st.write(stars_dataframe.info())
 
 st.markdown("---")
 
@@ -29,7 +35,7 @@ cleanstars_dataframe.drop(dropped_columns, axis=1, inplace=True)
 cleanstars_dataframe.describe()
 
 st.write("Cleaned data")
-st.write("The data cleaning process involved the removal of all null values as well as the the final column. The column 'Type' was removed because of it's irrelevance to the processing.")
+st.write("The data cleaning process involved checking for null values as well as the the final column. The column 'Type' was removed because of it's irrelevance to the processing, and no null values were found.")
 st.write("Post-processing Head")
 st.table(cleanstars_dataframe.head())
 st.write("Post-processing Tail")
@@ -40,11 +46,15 @@ st.write("Post-processing Columns")
 st.write(cleanstars_dataframe.columns)
 st.write("Post-processing Basic Statistics")
 st.table(cleanstars_dataframe.describe())
-st.write("Post-processing Info")
-st.write(cleanstars_dataframe.info())
+
+st.markdown("---")
 
 st.write("Hypothesis 1")
-fig = px.scatter(x=cleanstars_dataframe["L"], y=cleanstars_dataframe["R"])
+fig = px.scatter(x=cleanstars_dataframe["L"], y=cleanstars_dataframe["R"], labels={
+                     "L": "Relative Luminosity",
+                     "R": "Relative Radius"
+                 })
+fig.update_layout(title_text="Relative Luminosity vs. Relative  Radius")
 st.plotly_chart(fig, use_container_width=True)
 
 st.write(
@@ -63,11 +73,7 @@ st.markdown("---")
 
 st.write("Hypothesis 2")
 fig2 = px.scatter(x=cleanstars_dataframe['L'],
-                  y=cleanstars_dataframe['Temperature'],
-                  log_x=True,
-                  range_x=[0.00001, 1000000])
-fig2.update_layout(height=800,
-                   title_text="Relative Luminosity vs. Temperature (k)")
+                  y=cleanstars_dataframe['Temperature'], labels={"L": "Relative Luminosity",                       "Temperature": "Temperature (k)"}, title="Relative Luminosity vs. Temperature                    (k)", log_x=True, range_x=[0.00001, 1000000])
 st.plotly_chart(fig2, use_container_width=True)
 
 fig3 = px.scatter(x=cleanstars_dataframe['L'],
@@ -84,8 +90,12 @@ st.markdown("---")
 
 st.write("Hypothesis 3")
 fig4 = px.scatter(x=cleanstars_dataframe["A_M"],
-                 y=cleanstars_dataframe["Temperature"])
+                 y=cleanstars_dataframe["Temperature"], labels={
+                     "A_M": "Absolute Magnitude",
+                     "Temperature": "Temperature (k)"
+                 })
 st.plotly_chart(fig4, use_container_width=True)
+fig4.update_layout(title_text="Absolute Magnitude vs. Temperature")
 
 st.write(
   "There is a general curve of stars that looks like an exponential decay curve. In general, the higher the absolute magnitude (lower the brightness), the lower the temperature, which makes sense intuitively. However, there are two groups of outliers. The first group is located when the absolute magnitude is less than -5. Despite their low absolute magnitudes (high brightness), they have incredibly low temperatures. The second group is located with the absolute magnitude is greater than 10. Despite their high absolute magnitudes (low brightness), they have incredibly high temperatures."
@@ -103,7 +113,7 @@ st.markdown("---")
 
 st.write("Hypothesis 4")
 color_frequency = cleanstars_dataframe["Color"].value_counts()
-fig5 = px.pie(cleanstars_dataframe, names='Color', title='Frequency of star')
+fig5 = px.pie(cleanstars_dataframe, names='Color', title='Frequency of Star Colors')
 fig5.update_traces(hoverinfo='percent', textinfo='value')
 st.plotly_chart(fig5, use_container_width=True)
 
@@ -114,7 +124,11 @@ st.markdown("---")
 
 st.write("Hypothesis 5")
 fig6 = px.density_heatmap(x=cleanstars_dataframe["Color"],
-                         y=cleanstars_dataframe["Spectral_Class"])
+                         y=cleanstars_dataframe["Spectral_Class"], labels={
+                     "Color": "Color",
+                     "Spectral_Class": "Spectral Class"
+                 })
+fig6.update_layout(title_text="Color vs. Spectral Class")
 fig6.update_xaxes(categoryarray=[
   "Red", "OrangeRed", "Orange", "YellowOrange", "Yellow", "YellowWhite",
   "White", "BlueWhite", "Blue"
